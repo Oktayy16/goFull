@@ -69,3 +69,71 @@ func intDivision(numerator int, denominator int) (int, int, error) {
 	var remainder int = numerator % denominator
 	return result, remainder, err
 }
+
+func Arrays() {
+	var intArr [3]int32 // [0,0,0] olarak veri girildi
+
+	// For initilize with data in it
+	var intArr2 [3]int32 = [3]int32{1, 2, 3}
+	intArr3 := [3]int32{1, 2, 3} // kısa yol yazımı
+	fmt.Printf("birinci %v, ikinci %v üçüncü %v ", intArr, intArr2, intArr3)
+}
+
+func Slice() {
+	// add a value to slice
+	var intSlice []int32 = []int32{3, 4, 6}
+	intSlice = append(intSlice, 7)
+	fmt.Println(intSlice)
+
+	// add another slice to main slice with ...
+	inySlice2 := []int32{8, 9}
+	intSlice = append(intSlice, inySlice2...)
+	fmt.Println(intSlice)
+
+	// create
+	var intSlice3 []int = make([]int, 3, 8) // len 3 , cap 8 olarak yaratır
+	fmt.Println(intSlice3)
+}
+
+// Dictionary
+func Map() {
+	// Key in [], value end of it
+	var myMap map[string]uint8 = make(map[string]uint8)
+	fmt.Println(myMap) // return map[]
+
+	// initiliaze
+	var myMap2 = map[string]uint8{"Adam": 23, "Sarah": 45}
+	fmt.Println(myMap2["Adam"]) // return 23 döndürür
+
+	fmt.Println(myMap2["Jason"])  // return 0 because it's default value, be carryful about it
+	var age, ok = myMap2["Jason"] // If it's exist ok will be True. If its not then false
+	if ok {
+		fmt.Println(age)
+	}
+
+	// LOOPS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+	// like foreach
+	for name := range myMap2 {
+		fmt.Printf("Name: %v\n", name)
+	}
+
+	for i, v := range myMap2 { // index and value with loop
+		fmt.Printf("Index %v, Value %v", i, v)
+	}
+
+	//while loop
+	i := 0
+	for i < 10 {
+		fmt.Println(i)
+		i = i + 1
+	}
+
+	// clasic for loop
+	for i := 0; i < 10; i++ { // İ-- dec 1, i += 10 inc 10, i *= 10 multiply 10, i /= 10 divide 10
+		fmt.Println(i)
+	}
+
+	//  if collection cap is decleare it then that slice performance will be better like []int{} vs make([]int,0,10000) -> make will be 3 times faster for 1 loop
+
+}
