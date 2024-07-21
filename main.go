@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"strings"
 )
 
 func main() {
@@ -56,6 +57,8 @@ func main() {
 	default:
 		fmt.Println("not close")
 	}
+
+	structFunc()
 
 }
 
@@ -136,4 +139,77 @@ func Map() {
 
 	//  if collection cap is decleare it then that slice performance will be better like []int{} vs make([]int,0,10000) -> make will be 3 times faster for 1 loop
 
+}
+
+func Strings() {
+	// string olarak bir string üzerinde gezebiliriz, char ları tek tek basar ve her birinin kapladığı bir byte miktarı bulunur. € gibi harflar fazla yer
+	// kaplarlar. String  değişmez bir kez yaraılır sabit kalır, değiştirilemez. String e kelime eklenecekse string builder kullanılmalıdır
+	strSlice := []string{"s", "s", "s", "a"}
+	var stBuilder strings.Builder // it's not mutable
+	for i := range strSlice {
+		stBuilder.WriteString(strSlice[i])
+	}
+}
+
+// struct
+type gasEngine struct { // as a default properties will be created with default of deir values for this var 0 and 0
+	mpg      uint8
+	gallons  uint8
+	carOwner owner
+	owner    // giving a name to struct is not nessasary
+	int      // giving a name to struct is not nessasary
+}
+
+type owner struct {
+	name string
+}
+
+// Create a metot for the struct
+func (e gasEngine) milesLeft() uint8 {
+	return e.gallons * e.mpg
+}
+
+type engine interface { // with interface not genericly we can use many thing with it(share same metots with it)
+	milesLeft() uint8
+}
+
+func canMakeIt(e engine, miles uint8) {
+	if miles <= e.milesLeft() {
+		fmt.Println("You can make it")
+	} else {
+		fmt.Println("You cannot do it")
+	}
+}
+
+func structFunc() {
+	var structDeneme gasEngine // 0,0
+	var structDeneme2 gasEngine = gasEngine{15, 20, owner{"Oktay"}, owner{"Oktay2"}, 15}
+
+	// bilinmeyen struct !!! direkly for that purpose
+	var myEngine2 = struct {
+		mpg  uint8
+		gall uint8
+	}{15, 15}
+	fmt.Println(myEngine2)
+
+	fmt.Println(structDeneme, structDeneme2)
+
+	canMakeIt(structDeneme, 150) // -> we gave struct for interface and it's done
+}
+
+func pointers() {
+	var p *int32               // in a adress equls nil
+	var p2 *int32 = new(int32) // creates a value in some address and p2 holding address of it
+	var i int32                // for some address equls 0 value
+
+	// if use * agains p again it will give us value -> *p2 = 0
+
+	// &
+	p3 := &i // Don't bring value of i, bring address of i so p3 will be pointer
+}
+
+
+// goroutines
+func goRoutines() {
+	
 }
